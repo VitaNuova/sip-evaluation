@@ -1,8 +1,0 @@
-/home/sip/protection/sip-evaluation/SC-build/CMakeFiles/edit_cache.dir
-/home/sip/protection/sip-evaluation/SC-build/CMakeFiles/rebuild_cache.dir
-/home/sip/protection/sip-evaluation/SC-build/src/CMakeFiles/rebuild_cache.dir
-/home/sip/protection/sip-evaluation/SC-build/src/CMakeFiles/edit_cache.dir
-/home/sip/protection/sip-evaluation/SC-build/src/CMakeFiles/self-checksumming.dir
-/home/sip/protection/sip-evaluation/SC-build/testing/CMakeFiles/rebuild_cache.dir
-/home/sip/protection/sip-evaluation/SC-build/testing/CMakeFiles/edit_cache.dir
-/home/sip/protection/sip-evaluation/SC-build/testing/CMakeFiles/snippets.dir
