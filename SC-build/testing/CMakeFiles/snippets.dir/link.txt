@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/snippets.dir/test.cpp.o  -o snippets -rdynamic -ldyninstAPI -linstructionAPI 

@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sip/protection/self-checksumming/testing/test.cpp
+iostream
+-
+set
+-
+BPatch.h
+/home/sip/protection/self-checksumming/testing/BPatch.h
+BPatch_binaryEdit.h
+/home/sip/protection/self-checksumming/testing/BPatch_binaryEdit.h
+BPatch_image.h
+/home/sip/protection/self-checksumming/testing/BPatch_image.h
+BPatch_point.h
+/home/sip/protection/self-checksumming/testing/BPatch_point.h
+BPatch_function.h
+/home/sip/protection/self-checksumming/testing/BPatch_function.h
+BPatch_flowGraph.h
+/home/sip/protection/self-checksumming/testing/BPatch_flowGraph.h
+Instruction.h
+/home/sip/protection/self-checksumming/testing/Instruction.h
+
