@@ -1,0 +1,6 @@
+fits_in
+next_shape
+place
+freeze
+update
+show_high_score

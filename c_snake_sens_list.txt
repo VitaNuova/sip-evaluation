@@ -1,0 +1,7 @@
+snake_game_over
+snake_in_bounds
+snake_draw_fruit
+snake_index_to_coordinate
+snake_cooridinate_to_index
+snake_move_player
+main
