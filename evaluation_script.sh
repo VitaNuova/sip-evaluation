@@ -15,12 +15,12 @@ cmake /home/sip/protection/introspection-oblivious-hashing
 make 
 cd ..
 
-# rm -rf CFI-build
-# mkdir CFI-build
-# cd CFI-build
-# cmake /home/sip/protection/cf-integrity
-# make
-# cd ..
+rm -rf CFI-build
+mkdir CFI-build
+cd CFI-build
+cmake /home/sip/protection/cfi
+make
+cd ..
 
 
 
