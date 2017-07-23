@@ -1,0 +1,23 @@
+{
+    "functionsRC" : ["CeilDiv", "GetLengthScore", "StringsEqual","LeafComparator"],
+    "program" : ["/home/sip/dataset/src/zopfli/src/zopfli/blocksplitter.c",
+                 "/home/sip/dataset/src/zopfli/src/zopfli/cache.c",
+ 		 "/home/sip/dataset/src/zopfli/src/zopfli/deflate.c",
+	         "/home/sip/dataset/src/zopfli/src/zopfli/gzip_container.c",
+                 "/home/sip/dataset/src/zopfli/src/zopfli/hash.c",
+                 "/home/sip/dataset/src/zopfli/src/zopfli/katajainen.c",
+	         "/home/sip/dataset/src/zopfli/src/zopfli/lz77.c",
+	         "/home/sip/dataset/src/zopfli/src/zopfli/squeeze.c",
+		 "/home/sip/dataset/src/zopfli/src/zopfli/tree.c",
+                 "/home/sip/dataset/src/zopfli/src/zopfli/util.c",
+                 "/home/sip/dataset/src/zopfli/src/zopfli/zlib_container.c",
+                 "/home/sip/dataset/src/zopfli/src/zopfli/zopfli_bin.c",
+		 "/home/sip/dataset/src/zopfli/src/zopfli/zopfli_lib.c"  	  	  
+                ],
+    "binary" : "InterestingProgram-rewritten",
+    "clangFlags" : "-W -Wall -Wextra -ansi -pedantic -O2 -Wno-unused-function",
+    "connectivity" : 2,
+    "syminputC" : "/home/sip/klee/syminputC.py",
+    "syminputBC" : "/home/sip/klee/syminputBC.py",
+    "verbose" : true
+}

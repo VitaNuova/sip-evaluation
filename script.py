@@ -255,9 +255,10 @@ memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "input
 print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = create_snippet('tetris', 'OH+SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
+result_file.write(snippet)
 '''
 
-
+'''
 # CFI + OH
 # micro-snake
 protection_time = measure_protection_time(["./cfi_oh.sh", "snake.bc", "snake_sens_list.txt", "inputs/micro-snake.in"])
@@ -275,4 +276,33 @@ print('memory overhead ' + str(memory_overhead) + '%')
 snippet = create_snippet('micro-snake', 'CFI+OH', protection_time, runtime_overhead, memory_overhead, size_overhead)
 
 result_file.write(snippet)
+'''
+
+# RC
+# zopfli
+p = subprocess.Popen(["cp", "config_zopfli.json", "/home/sip/protection/stins4llvm"], stdout = subprocess.PIPE)
+out, err = p.communicate()
+
+os.chdir("/home/sip/protection/stins4llvm")
+#p = subprocess.Popen(["cd", "/home/sip/protection/stins4llvm"], stdout = subprocess.PIPE)
+#out, err = p.communicate()
+
+protection_time = measure_protection_time(["./run.sh", "-f", "config_zopfli.json"])
+print('RC zopfli protection time ' + str(protection_time))
+
+runtime_overhead = measure_runtime_overhead(["/home/sip/protection/sip-evaluation/input_programs/zopfli","/home/sip/dataset/inputs/zopfli.in"], ["build/zopfli-rewritten", "/home/sip/dataset/inputs/zopfli.in"]) 
+print('runtime overhead ' + str(runtime_overhead) + '%')
+
+size_overhead = measure_binary_overhead("/home/sip/protection/sip-evaluation/input_programs/zopfli", "build/zopfli-rewritten")
+print('size overhead ' + str(size_overhead) + '%')
+
+memory_overhead = measure_memory_overhead(["/home/sip/protection/sip-evaluation/input_programs/zopfli","/home/sip/dataset/inputs/zopfli.in"], ["build/zopfli-rewritten", "/home/sip/dataset/inputs/zopfli.in"])
+print('memory overhead ' + str(memory_overhead) + '%')
+
+os.chdir("/home/sip/protection/sip-evaluation")
+
+snippet = create_snippet('micro-snake', 'RC', protection_time, runtime_overhead, memory_overhead, size_overhead)
+
+result_file.write(snippet)
+
 result_file.close()
