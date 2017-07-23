@@ -1,0 +1,5 @@
+ZopfliUpdateHash
+AddHuffmanBits
+ZopfliCleanHash
+UpdateHashValue
+ZopfliWarmupHash

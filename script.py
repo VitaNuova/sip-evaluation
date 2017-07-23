@@ -1,10 +1,11 @@
-import time
-import subprocess
-import os
+#import time
+#import subprocess
+#import os
+
+import common
 
 result_file = open("results.json", "a")
-
-# protection overhead
+'''
 def measure_protection_time(args):
    start = time.time()
    FNULL = open(os.devnull, 'w')
@@ -12,7 +13,8 @@ def measure_protection_time(args):
    out, err = p.communicate()
    end = time.time()
    return end - start
-
+'''
+'''
 def measure_runtime_overhead(arg_before, arg_after):
    start = time.time()
    FNULL = open(os.devnull, 'w')
@@ -23,11 +25,11 @@ def measure_runtime_overhead(arg_before, arg_after):
    print('arg_before ' + str(arg_before))
    print('run_before ' + str(runtime_before)) 
    start = time.time()
+   print('arg_after ' + str(arg_after))
    p = subprocess.Popen(arg_after, stdout = FNULL, stderr = FNULL)
    out, err = p.communicate()
    end = time.time()
    runtime_after = end - start
-   print('arg_after ' + str(arg_after))
    print('run_after ' + str(runtime_after))
    runtime_overhead = (runtime_after - runtime_before) /  runtime_before * 100
    return runtime_overhead
@@ -50,59 +52,60 @@ def measure_memory_overhead(cmd_before, cmd_after):
    print 'mem_after ' + mem_after
    mem_overhead = (float(mem_after) - float(mem_before)) / float(mem_before) * 100 
    return mem_overhead
-
+'''
+'''
 def create_snippet(program, composition, protection_time, runtime_overhead, memory_overhead, size_overhead):
    return '{\n"program": "' + program + '",\n"Results": [\n\t\t{\n\t\t"Composition": "' + composition + '",\n\t\t"ProtectionTime": ' + str(protection_time) + ',\n\t\t"RuntimeOverhead": ' + str(runtime_overhead) + ',\n\t\t"MemoryOverhead": ' + str(memory_overhead) + ',\n\t\t"BinarySizeOverhead": ' + str(size_overhead) + '\n\t\t}\n\t]\n}\n' 
 '''
 # SC
 # micro-snake
-protection_time = measure_protection_time(["SC-build/src/self-checksumming", "input_programs/snake", "1", "snake"])
+protection_time = common.measure_protection_time(["SC-build/src/self-checksumming", "input_programs/snake", "1", "snake"])
 print('snake protection time ' + str(protection_time))
 
-runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake_modified"]) 
+runtime_overhead = common.measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake_modified"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = measure_binary_overhead("input_programs/snake", "input_programs/snake_modified")
+size_overhead = common.measure_binary_overhead("input_programs/snake", "input_programs/snake_modified")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake_modified"])
+memory_overhead = common.measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake_modified"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
-snippet = create_snippet('micro-snake', 'SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
+snippet = common.create_snippet('micro-snake', 'SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
 result_file.write(snippet)
 
 # csnake
-protection_time = measure_protection_time(["SC-build/src/self-checksumming", "input_programs/csnake", "1", "csnake"])
+protection_time = common.measure_protection_time(["SC-build/src/self-checksumming", "input_programs/csnake", "1", "csnake"])
 print('csnake protection time ' + str(protection_time))
 
-runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake_modified"]) 
+runtime_overhead = common.measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake_modified"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = measure_binary_overhead("input_programs/csnake", "input_programs/csnake_modified")
+size_overhead = common.measure_binary_overhead("input_programs/csnake", "input_programs/csnake_modified")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake_modified"])
+memory_overhead = common.measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake_modified"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
-snippet = create_snippet('csnake', 'SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
+snippet = common.create_snippet('csnake', 'SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
 result_file.write(snippet)
 
 # tetris
-protection_time = measure_protection_time(["SC-build/src/self-checksumming", "input_programs/tetris", "1", "tetris"])
+protection_time = common.measure_protection_time(["SC-build/src/self-checksumming", "input_programs/tetris", "1", "tetris"])
 print('tetris protection time ' + str(protection_time))
 
-runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris_modified"]) 
+runtime_overhead = common.measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris_modified"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = measure_binary_overhead("input_programs/tetris", "input_programs/tetris_modified")
+size_overhead = common.measure_binary_overhead("input_programs/tetris", "input_programs/tetris_modified")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris_modified"])
+memory_overhead = common.measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris_modified"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
-snippet = create_snippet('tetris', 'SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
+snippet = common.create_snippet('tetris', 'SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
 result_file.write(snippet)
-
+'''
 # OH
 # micro-snake
 protection_time = measure_protection_time(["./run-oh-eval.sh", "/home/sip/dataset/src/micro-snake/snake.c", "inputs/micro-snake.in"])
@@ -119,6 +122,7 @@ print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = create_snippet('micro-snake', 'OH', protection_time, runtime_overhead, memory_overhead, size_overhead)
 result_file.write(snippet)
+
 
 # c-snake
 protection_time = measure_protection_time(["./run-oh-eval.sh", "/home/sip/dataset/src/c-snake/snake.c", "inputs/c-snake.in"])
@@ -152,56 +156,71 @@ print('memory overhead ' + str(memory_overhead) + '%')
 snippet = create_snippet('tetris', 'OH', protection_time, runtime_overhead, memory_overhead, size_overhead)
 result_file.write(snippet)
 
-# CFI
-# micro-snake
-protection_time = measure_protection_time(["./cfi_protect_snake.sh"])
-print('CFI snake protection time ' + str(protection_time))
+# zopfli
+protection_time = measure_protection_time(["./run-oh-zopfli.sh", "./zopfli-whole.bc"])
+print('zopfli protection time ' + str(protection_time))
 
-runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "CFI-build/snake_protected"]) 
+runtime_overhead = measure_runtime_overhead(["input_programs/zopfli", "inputs/zopfli.in"], ["OH-build/protected", "inputs/zopfli.in"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = measure_binary_overhead("input_programs/snake", "CFI-build/snake_protected")
+size_overhead = measure_binary_overhead("input_programs/zopfli", "OH-build/protected")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "CFI-build/snake_protected"])
+memory_overhead = measure_memory_overhead(["input_programs/zopfli", "inputs/zopfli.in"], ["OH-build/protected", "inputs/zopfli.in"])
+print('memory overhead ' + str(memory_overhead) + '%')
+
+snippet = create_snippet('zopfli', 'OH', protection_time, runtime_overhead, memory_overhead, size_overhead)
+result_file.write(snippet)
+
+# CFI
+# micro-snake
+protection_time = measure_protection_time(["./compile.sh", "inputs/snake.bc", "CFI-build/snake", "snake_sens_list.txt"])
+print('CFI snake protection time ' + str(protection_time))
+
+runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "CFI-build/snake"]) 
+print('runtime overhead ' + str(runtime_overhead) + '%')
+
+size_overhead = measure_binary_overhead("input_programs/snake", "CFI-build/snake")
+print('size overhead ' + str(size_overhead) + '%')
+
+memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "CFI-build/snake"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = create_snippet('micro-snake', 'CFI', protection_time, runtime_overhead, 0, size_overhead)
 result_file.write(snippet)
 
 # csnake
-protection_time = measure_protection_time(["./cfi_protect_c_snake.sh"])
+protection_time = measure_protection_time(["./compile.sh", "inputs/csnake.bc", "CFI-build/csnake", "c_snake_sens_list.txt"])
 print('csnake protection time ' + str(protection_time))
 
-runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "CFI-build/csnake_protected"]) 
+runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "CFI-build/csnake"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = measure_binary_overhead("input_programs/csnake", "CFI-build/csnake_protected")
+size_overhead = measure_binary_overhead("input_programs/csnake", "CFI-build/csnake")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "CFI-build/csnake_protected"])
+memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/c-snake.in", "input_programs/csnake"], ["python", "inputs/ptypipe.py", "inputs/c-snake.in", "CFI-build/csnake"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = create_snippet('csnake', 'CFI', protection_time, runtime_overhead, 0, size_overhead)
 result_file.write(snippet)
 
 # tetris
-protection_time = measure_protection_time(["./cfi_protect_tetris.sh"])
+protection_time = measure_protection_time(["./compile.sh", "inputs/tetris.bc", "CFI-build/tetris","tetris_sens_list.txt"])
 print('tetris protection time ' + str(protection_time))
 
-runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "CFI-build/tetris_protected"]) 
+runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "CFI-build/tetris"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = measure_binary_overhead("input_programs/tetris", "CFI-build/tetris_protected")
+size_overhead = measure_binary_overhead("input_programs/tetris", "CFI-build/tetris")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "CFI-build/tetris_protected"])
+memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/tetris.in", "input_programs/tetris"], ["python", "inputs/ptypipe.py", "inputs/tetris.in", "CFI-build/tetris"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = create_snippet('tetris', 'CFI', protection_time, runtime_overhead, 0, size_overhead)
 result_file.write(snippet)
-'''
-'''
+
 # OH + SC
 # micro-snake
 oh_protection_time = measure_protection_time(["./run-oh-eval.sh", "/home/sip/dataset/src/micro-snake/snake.c", "inputs/micro-snake.in"])
@@ -256,27 +275,25 @@ print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = create_snippet('tetris', 'OH+SC', protection_time, runtime_overhead, memory_overhead, size_overhead)
 result_file.write(snippet)
-'''
 
-'''
 # CFI + OH
 # micro-snake
-protection_time = measure_protection_time(["./cfi_oh.sh", "snake.bc", "snake_sens_list.txt", "inputs/micro-snake.in"])
+protection_time = measure_protection_time(["./cfi_oh.sh", "inputs/snake.bc", "snake_sens_list.txt", "inputs/micro-snake.in"])
 print('CFI + OH snake protection time ' + str(protection_time))
 
-runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/protected"]) 
+runtime_overhead = measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/cfi_oh_protected"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = measure_binary_overhead("input_programs/snake", "OH-build/protected")
+size_overhead = measure_binary_overhead("input_programs/snake", "OH-build/cfi_oh_protected")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/protected"])
+memory_overhead = measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/cfi_oh_protected"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = create_snippet('micro-snake', 'CFI+OH', protection_time, runtime_overhead, memory_overhead, size_overhead)
 
 result_file.write(snippet)
-'''
+
 
 # RC
 # zopfli
@@ -304,5 +321,5 @@ os.chdir("/home/sip/protection/sip-evaluation")
 snippet = create_snippet('micro-snake', 'RC', protection_time, runtime_overhead, memory_overhead, size_overhead)
 
 result_file.write(snippet)
-
+'''
 result_file.close()
