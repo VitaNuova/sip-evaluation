@@ -9,13 +9,13 @@ result_file = open("results.json", "a")
 protection_time = common.measure_protection_time(["./cfi_oh.sh", "inputs/snake.bc", "snake_sens_list.txt", "inputs/micro-snake.in"])
 print('CFI + OH snake protection time ' + str(protection_time))
 
-runtime_overhead = common.measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/cfi_oh_protected"]) 
+runtime_overhead = common.measure_runtime_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/protected"]) 
 print('runtime overhead ' + str(runtime_overhead) + '%')
 
-size_overhead = common.measure_binary_overhead("input_programs/snake", "OH-build/cfi_oh_protected")
+size_overhead = common.measure_binary_overhead("input_programs/snake", "OH-build/protected")
 print('size overhead ' + str(size_overhead) + '%')
 
-memory_overhead = common.measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/cfi_oh_protected"])
+memory_overhead = common.measure_memory_overhead(["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "input_programs/snake"], ["python", "inputs/ptypipe.py", "inputs/micro-snake.in", "OH-build/protected"])
 print('memory overhead ' + str(memory_overhead) + '%')
 
 snippet = common.create_snippet('micro-snake', 'CFI+OH', protection_time, runtime_overhead, memory_overhead, size_overhead)
