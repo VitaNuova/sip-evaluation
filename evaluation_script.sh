@@ -1,6 +1,5 @@
 #!/bin/bash
 
-build SC
 rm -rf SC-build
 mkdir SC-build
 cd SC-build
