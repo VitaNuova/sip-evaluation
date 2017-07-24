@@ -20,6 +20,7 @@ clang-3.9 -g -c -emit-llvm /home/sip/protection/cfi/code/NewStackAnalysis.c -o C
 # compiling external libraries to bitcodes
 clang++-3.9 /home/sip/protection/introspection-oblivious-hashing/assertions/asserts.cpp -std=c++0x -c -emit-llvm -o OH-build/asserts.bc
 clang-3.9 /home/sip/protection/introspection-oblivious-hashing/hashes/hash.c -c -emit-llvm -o OH-build/hash.bc
+clang++-3.9 /home/sip/protection/introspection-oblivious-hashing/assertions/logs.cpp -std=c++0x -c -emit-llvm -o OH-build/logs.bc
 
 # Running hash insertion pass
 opt-3.9 -load /usr/local/lib/libInputDependency.so -load  OH-build/lib/liboblivious-hashing.so CFI-build/something_pass.bc -oh-insert -num-hash 5 -o OH-build/out.bc
@@ -27,6 +28,8 @@ opt-3.9 -load /usr/local/lib/libInputDependency.so -load  OH-build/lib/liboblivi
 llvm-link-3.9 CFI-build/NewStackAnalysis.bc OH-build/out.bc -o OH-build/out.bc
 llvm-link-3.9 OH-build/out.bc OH-build/hash.bc -o OH-build/out.bc
 llvm-link-3.9 OH-build/out.bc OH-build/asserts.bc -o OH-build/out.bc
+llvm-link-3.9 OH-build/out.bc OH-build/logs.bc -o OH-build/out.bc
+
 
 # precompute hashes
 clang++-3.9 -g -lncurses -rdynamic -std=c++0x OH-build/out.bc -o OH-build/out -lssl -lcrypto
