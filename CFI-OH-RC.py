@@ -45,7 +45,7 @@ print('memory overhead ' + str(memory_overhead) + '%')
 
 os.chdir("/home/sip/protection/sip-evaluation")
 
-snippet = common.create_snippet('micro-snake', 'RC', protection_time, runtime_overhead, memory_overhead, size_overhead)
+snippet = common.create_snippet('zopfli', 'RC', protection_time, runtime_overhead, memory_overhead, size_overhead)
 
 result_file.write(snippet)
 
