@@ -22,6 +22,9 @@ cmake /home/sip/protection/cfi
 make
 cd ..
 
+cp config_zopfli.json /home/sip/protection/stins4llvm
+cp run-oh.sh /home/sip/protection/introspection-oblivious-hashing
+
 python SC.py
 python OH.py
 python CFI.py
