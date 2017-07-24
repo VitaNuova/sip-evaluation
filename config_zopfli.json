@@ -14,9 +14,9 @@
                  "/home/sip/dataset/src/zopfli/src/zopfli/zopfli_bin.c",
 		 "/home/sip/dataset/src/zopfli/src/zopfli/zopfli_lib.c"  	  	  
                 ],
-    "binary" : "InterestingProgram-rewritten",
+    "binary" : "zopfli-rewritten",
     "clangFlags" : "-W -Wall -Wextra -ansi -pedantic -O2 -Wno-unused-function",
-    "connectivity" : 2,
+    "connectivity" : 1,
     "syminputC" : "/home/sip/klee/syminputC.py",
     "syminputBC" : "/home/sip/klee/syminputBC.py",
     "verbose" : true
