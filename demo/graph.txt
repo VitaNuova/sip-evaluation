@@ -1,0 +1,12 @@
+9
+10
+collision collide_walls
+collision collide_object
+collision collide_self
+main setup_level
+main move
+main collision
+main collide_object
+main eat_gold
+main show_score
+setup_level show_score
